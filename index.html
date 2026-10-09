@@ -1,0 +1,259 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#080a10">
+  <title>Briefly - document workspace</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="luffy-theme">
+  <header class="topbar">
+    <div class="brand">
+      <span class="brand-mark" aria-hidden="true">
+        <svg viewBox="0 0 32 32" fill="none"><path d="M5 22.5c5.2-2 16.8-2 22 0-4.3 3.5-17.7 3.5-22 0Z" fill="#FFD166" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M10 20.5c.3-5.8 3-9.5 6-9.5s5.7 3.7 6 9.5c-3.8-.8-8.2-.8-12 0Z" fill="#F4C95D" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M11.2 17h9.6" stroke="#B93432" stroke-width="2.5" stroke-linecap="round"/><path d="M7.5 8.5h.1M24.5 10.5h.1" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/></svg>
+      </span>
+      <span class="brand-word">briefly</span>
+    </div>
+    <div class="header-actions">
+      <div class="local-note"><span class="local-dot"></span> Your files stay on this device</div>
+      <button id="voice-assistant-toggle" class="header-action voice-assistant-toggle" type="button" aria-expanded="false" aria-controls="voice-assistant" hidden><span aria-hidden="true">♫</span> Voice help</button>
+      <button id="header-action" class="header-action" type="button" hidden>Open workspace <span aria-hidden="true">↗</span></button>
+    </div>
+  </header>
+
+  <section id="voice-assistant" class="voice-assistant" role="dialog" aria-labelledby="voice-assistant-title" aria-modal="false" hidden>
+    <div class="voice-assistant-header">
+      <div class="voice-assistant-identity"><span class="assistant-avatar" aria-hidden="true">b</span><div><h2 id="voice-assistant-title">Briefly voice help</h2><span>Here to help you find your way</span></div></div>
+      <button id="voice-assistant-close" class="voice-close" type="button" aria-label="Close voice help">×</button>
+    </div>
+    <div id="voice-chat-messages" class="voice-chat-messages" role="log" aria-live="polite" aria-relevant="additions"></div>
+    <p id="voice-assistant-status" class="voice-assistant-status" aria-live="polite">Ask by typing, or use the microphone. Speech recognition depends on your browser.</p>
+    <form id="voice-chat-form" class="voice-chat-form">
+      <label class="sr-only" for="voice-chat-input">Ask Briefly for help</label>
+      <input id="voice-chat-input" type="text" maxlength="240" placeholder="Ask how Briefly works…" autocomplete="off">
+      <button id="voice-mic-button" class="voice-mic-button" type="button" aria-label="Ask by voice" title="Ask by voice"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="3" width="6" height="12" rx="3" stroke="currentColor" stroke-width="1.7"/><path d="M5.5 11.5a6.5 6.5 0 0 0 13 0M12 18v3m-3 0h6" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg></button>
+      <button class="voice-send-button" type="submit" aria-label="Send message">→</button>
+    </form>
+    <p class="voice-privacy-note">Local help, not a connected AI. Voice recognition may be processed by your browser provider.</p>
+  </section>
+
+  <aside id="treasure-widget" class="treasure-widget" aria-label="Bonus treasure" hidden>
+    <div id="coin-total" class="coin-total" aria-live="polite" hidden><span class="coin-small" aria-hidden="true"></span><span id="coin-count">0</span></div>
+    <button id="treasure-button" class="treasure-button" type="button" aria-label="Open the treasure chest and collect coins">
+      <svg viewBox="0 0 48 48" fill="none" aria-hidden="true">
+        <path d="M7 21h34v20H7z" fill="#8e321f" stroke="#ffd166" stroke-width="2"/>
+        <path d="M5 20c0-7 5-12 12-12h14c7 0 12 5 12 12v4H5z" fill="#c4472d" stroke="#ffd166" stroke-width="2"/>
+        <path d="M5 20h38v7H5z" fill="#e4a936" stroke="#ffd166" stroke-width="2"/>
+        <path d="M19 26h10v11H19z" fill="#ffd166" stroke="#6d301d" stroke-width="2"/>
+        <circle cx="24" cy="31" r="1.5" fill="#6d301d"/>
+        <path d="M10 32h4m20 0h4" stroke="#f29a45" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+      <span class="treasure-hint">Tap for treasure</span>
+    </button>
+    <div id="coin-burst" class="coin-burst" aria-hidden="true"></div>
+  </aside>
+
+  <main>
+    <section id="login-page" class="login-page" aria-labelledby="login-title">
+      <div class="login-card">
+        <div class="login-emblem" aria-hidden="true"><span class="brand-mark"><svg viewBox="0 0 32 32" fill="none"><path d="M5 22.5c5.2-2 16.8-2 22 0-4.3 3.5-17.7 3.5-22 0Z" fill="#FFD166" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M10 20.5c.3-5.8 3-9.5 6-9.5s5.7 3.7 6 9.5c-3.8-.8-8.2-.8-12 0Z" fill="#F4C95D" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M11.2 17h9.6" stroke="#B93432" stroke-width="2.5" stroke-linecap="round"/></svg></span></div>
+        <div class="eyebrow">Welcome to Briefly</div>
+        <h1 id="login-title">Your documents,<br><span>one step away.</span></h1>
+        <p class="login-intro">Sign in to continue to your document workspace.</p>
+        <form id="demo-login-form" class="demo-login-form">
+          <label for="demo-email">Email</label>
+          <input id="demo-email" name="email" type="text" inputmode="email" autocomplete="off" maxlength="160" placeholder="you@example.com" required>
+          <label for="demo-password">Password</label>
+          <input id="demo-password" name="password" type="password" autocomplete="new-password" maxlength="160" placeholder="Enter any password" required>
+          <button class="primary-button demo-login-submit" type="submit">Enter Briefly <span aria-hidden="true">→</span></button>
+        </form>
+        <p id="demo-login-status" class="demo-login-status" aria-live="polite"></p>
+        <p class="demo-login-warning"><span aria-hidden="true">ⓘ</span> This sign-in does not verify or create an account. Use a placeholder password; it is not saved or sent anywhere.</p>
+      </div>
+      <div class="login-glow" aria-hidden="true"></div>
+    </section>
+
+    <section id="landing-page" class="landing-page" aria-labelledby="landing-title" hidden>
+      <div class="landing-hero">
+        <div class="landing-copy">
+          <div class="eyebrow"><span class="hero-sparkle" aria-hidden="true">✦</span> Your documents, understood</div>
+          <h1 id="landing-title">Less reading.<br><span>More understanding.</span></h1>
+          <p>Turn long documents into clear takeaways. Upload your files, get a quick summary, and listen whenever you’re ready.</p>
+          <div class="hero-actions">
+            <button class="primary-button hero-cta" type="button" data-go-workspace>Explore your documents <span aria-hidden="true">→</span></button>
+            <span class="hero-footnote"><span class="local-dot"></span> Private by design. Files stay in your browser.</span>
+          </div>
+        </div>
+        <div class="preview-card" aria-label="Example document summary preview">
+          <div class="preview-topline"><span class="preview-file-icon" aria-hidden="true">PDF</span><div><strong>Project overview.pdf</strong><span>Document preview</span></div><span class="preview-ready">Ready</span></div>
+          <div class="preview-divider"></div>
+          <div class="preview-label">QUICK OVERVIEW</div>
+          <p class="preview-summary">A clear plan for launching the next project phase, with milestones, ownership, and the key decisions to make this week.</p>
+          <div class="preview-tags"><span>milestones</span><span>launch plan</span><span>priorities</span></div>
+          <div class="preview-player"><span class="play-mark" aria-hidden="true">▶</span><span>Listen to summary</span><span class="sound-bars" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span></div>
+          <span class="preview-orbit orbit-one" aria-hidden="true"></span><span class="preview-orbit orbit-two" aria-hidden="true"></span>
+        </div>
+        <div class="hero-glow" aria-hidden="true"></div>
+      </div>
+
+      <div class="section-intro">
+        <div class="eyebrow">A calmer way to work</div>
+        <h2>Everything you need to get to the point.</h2>
+        <p>From a pile of files to the information that matters, all in one simple workspace.</p>
+      </div>
+      <section class="writer-section" aria-labelledby="writer-title">
+        <div class="writer-heading">
+          <div>
+            <div class="eyebrow">Your ideas, in document form</div>
+            <h2 id="writer-title">Let’s make a first draft.</h2>
+            <p>Tell Briefly what you’re working on, and get a structured document you can edit and download.</p>
+          </div>
+          <span class="writer-badge"><span aria-hidden="true">✦</span> BRIEFLY WRITER</span>
+        </div>
+        <div class="writer-chat">
+          <div class="writer-chat-topline">
+            <span>YOUR DRAFT CHAT</span>
+            <button id="clear-writer-chat" class="clear-chat-button" type="button" disabled aria-controls="writer-result">Clear chat</button>
+          </div>
+          <p id="writer-chat-status" class="writer-chat-status" aria-live="polite"></p>
+          <div class="writer-message assistant-message">
+            <span class="assistant-avatar" aria-hidden="true">b</span>
+            <p>Hi! What should your document be about? Pick a format and length, and I’ll put together a useful starting draft.</p>
+          </div>
+          <form id="writer-form" class="writer-form">
+            <label class="writer-topic-label" for="writer-topic">Your topic</label>
+            <textarea id="writer-topic" name="topic" rows="2" maxlength="160" placeholder="For example: A beginner’s guide to growing a balcony garden" required></textarea>
+            <div class="writer-options">
+              <label>Document type
+                <select id="writer-type" name="type">
+                  <option value="report">Professional report</option>
+                  <option value="guide">Practical guide</option>
+                  <option value="proposal">Project proposal</option>
+                  <option value="lesson">Learning resource</option>
+                  <option value="story">Story outline</option>
+                </select>
+              </label>
+              <label>Pages
+                <select id="writer-pages" name="pages">
+                  <option value="1">1 page</option>
+                  <option value="2" selected>2 pages</option>
+                  <option value="3">3 pages</option>
+                  <option value="4">4 pages</option>
+                  <option value="5">5 pages</option>
+                  <option value="6">6 pages</option>
+                  <option value="7">7 pages</option>
+                  <option value="8">8 pages</option>
+                </select>
+              </label>
+              <button id="writer-submit" class="primary-button writer-submit" type="submit"><span aria-hidden="true">✦</span> Create my draft</button>
+            </div>
+          </form>
+          <div id="writer-result" class="writer-result" aria-live="polite" hidden>
+            <div id="writer-conversation" class="writer-conversation"></div>
+            <div class="draft-card">
+              <div class="draft-topline">
+                <div><span class="draft-kicker">YOUR FIRST DRAFT</span><h3 id="draft-title"></h3></div>
+                <button id="download-draft" class="download-draft" type="button"><span aria-hidden="true">↓</span> Download .md</button>
+              </div>
+              <p id="writer-download-status" class="writer-download-status" aria-live="polite"></p>
+              <pre id="draft-preview" class="draft-preview"></pre>
+            </div>
+          </div>
+          <p class="writer-note"><span aria-hidden="true">ⓘ</span> This local draft tool uses structured templates, not a connected AI service. Review and edit the draft before using it.</p>
+        </div>
+      </section>
+      <div class="feature-grid">
+        <article class="feature-card">
+          <span class="feature-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M12 16V4m0 0L7.5 8.5M12 4l4.5 4.5M5 14v4.5A1.5 1.5 0 0 0 6.5 20h11a1.5 1.5 0 0 0 1.5-1.5V14" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          <h3>Bring your files</h3><p>Add PDFs, Word docs, text files, and more. Drop in one file or a whole folder’s worth.</p>
+        </article>
+        <article class="feature-card">
+          <span class="feature-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M5 6h14M5 10h10M5 14h14M5 18h8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="m17 9 2 2 3-4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          <h3>Get the key points</h3><p>Scan clear summaries, useful keywords, and page-by-page takeaways at a glance.</p>
+        </article>
+        <article class="feature-card">
+          <span class="feature-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M4 10v4h3l4 3V7l-4 3H4Zm11-1a4 4 0 0 1 0 6m2-8a7 7 0 0 1 0 10" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          <h3>Listen your way</h3><p>Let your browser read summaries aloud while you focus on what’s next.</p>
+        </article>
+      </div>
+
+      <div class="landing-bottom">
+        <div><div class="eyebrow">Ready when you are</div><h2>Your next insight is one upload away.</h2></div>
+        <button class="primary-button hero-cta" type="button" data-go-workspace>Get started <span aria-hidden="true">→</span></button>
+      </div>
+      <p class="footer-note">Summaries are generated in your browser. They’re a helpful starting point, not a substitute for the original.</p>
+    </section>
+
+    <section id="workspace-page" hidden aria-labelledby="page-title">
+      <div class="workspace-heading">
+        <button class="back-button" type="button" data-go-home><span aria-hidden="true">←</span> Back to overview</button>
+      </div>
+      <section class="intro" aria-labelledby="page-title">
+        <div class="eyebrow">Your document workspace</div>
+        <h1 id="page-title">Make sense of every file.</h1>
+        <p>Upload your documents to find the key points, search across everything, and listen to each summary aloud.</p>
+    </section>
+
+    <section id="dropzone" class="dropzone" aria-label="Add documents">
+      <span class="upload-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M12 16V4m0 0L7.5 8.5M12 4l4.5 4.5M5 14v4.5A1.5 1.5 0 0 0 6.5 20h11a1.5 1.5 0 0 0 1.5-1.5V14" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </span>
+      <strong>Drop your documents here</strong>
+      <p>PDF, Word (.docx), text, Markdown, CSV, JSON, or HTML - PDF/Word readers need an internet connection</p>
+      <label for="file-input" class="primary-button">Choose files</label>
+      <input id="file-input" type="file" multiple accept=".pdf,.docx,.txt,.md,.markdown,.csv,.json,.html,.htm,.xml,.log">
+    </section>
+
+    <section class="stats" aria-label="Document collection overview">
+      <div class="stat">
+        <span class="stat-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M6 3.75h8l4 4V20H6a1.5 1.5 0 0 1-1.5-1.5v-13A1.75 1.75 0 0 1 6.25 3.75Z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path d="M13.5 4v4h4M8 12h8M8 15.5h8" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg></span>
+        <div><div id="stat-files" class="stat-value">0</div><div class="stat-label">Documents added</div></div>
+      </div>
+      <div class="stat">
+        <span class="stat-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M4 6.5h16M4 12h11M4 17.5h7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><circle cx="18" cy="16.5" r="3" stroke="currentColor" stroke-width="1.8"/><path d="m20.2 18.7 1.3 1.3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></span>
+        <div><div id="stat-matches" class="stat-value">0</div><div class="stat-label">Search matches</div></div>
+      </div>
+      <div class="stat">
+        <span class="stat-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M4 19.5h16M6 16V9m4 7V5m4 11v-4m4 4V7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        <div><div id="stat-words" class="stat-value">0</div><div class="stat-label">Words scanned</div></div>
+      </div>
+    </section>
+
+    <section aria-labelledby="documents-heading">
+      <div class="section-heading">
+        <div>
+          <h2 id="documents-heading">Your documents <span id="document-count"></span></h2>
+          <p class="section-subtitle">Search across all added files and scan their quick summaries.</p>
+        </div>
+        <div class="toolbar">
+          <label class="search-wrap">
+            <span class="sr-only">Search document contents</span>
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.8" stroke="currentColor" stroke-width="1.8"/><path d="m16 16 4.3 4.3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+            <input id="search-input" class="search-input" type="search" placeholder="Search every document..." autocomplete="off">
+          </label>
+          <label>
+            <span class="sr-only">Sort documents</span>
+            <select id="sort-select" class="sort-select">
+              <option value="relevance">Most relevant</option>
+              <option value="name">Name A-Z</option>
+              <option value="size">Largest first</option>
+            </select>
+          </label>
+        </div>
+      </div>
+      <div id="file-list" class="file-list" aria-live="polite"></div>
+    </section>
+    <p id="voice-status" class="voice-status" aria-live="polite"></p>
+    <p class="footer-note">Summaries and voice playback run in your browser. Summaries are a starting point, not a substitute for the original.</p>
+    </section>
+  </main>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.9.0/mammoth.browser.min.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
